@@ -1,17 +1,23 @@
 package com.teamsparta.courseregistration.domain.courseapplication.controller
 
+import com.teamsparta.courseregistration.domain.course.service.CourseService
 import com.teamsparta.courseregistration.domain.courseapplication.dto.ApplyCourseRequest
 import com.teamsparta.courseregistration.domain.courseapplication.dto.CourseApplicationResponse
 import com.teamsparta.courseregistration.domain.courseapplication.dto.UpdateApplicationStatusRequest
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/course/{courseId}/applications")
 @RestController
-class CourseApplicationController {
+class CourseApplicationController(
+    private val courseService: CourseService,
+) {
     @GetMapping
     fun getApplicationList(@PathVariable courseId: Long): ResponseEntity<List<CourseApplicationResponse>> {
-        TODO()
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.getCourseApplicationList(courseId))
     }
 
     @GetMapping("/{applicationId}")
@@ -19,7 +25,9 @@ class CourseApplicationController {
         @PathVariable courseId: Long,
         @PathVariable applicationId: Long
     ): ResponseEntity<CourseApplicationResponse> {
-        TODO()
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.getCourseApplication(courseId, applicationId))
     }
 
     @PostMapping
@@ -27,7 +35,9 @@ class CourseApplicationController {
         @PathVariable courseId: Long,
         applyCourseRequest: ApplyCourseRequest
     ): ResponseEntity<CourseApplicationResponse> {
-        TODO()
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(courseService.applyCourse(courseId, applyCourseRequest))
     }
 
     @PatchMapping("/{applicationId}")
@@ -36,7 +46,9 @@ class CourseApplicationController {
         @PathVariable applicationId: Long,
         @RequestBody updateApplicationStatusRequest: UpdateApplicationStatusRequest
     ): ResponseEntity<CourseApplicationResponse> {
-        TODO()
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(courseService.updateCourseApplicationStatus(courseId, applicationId, updateApplicationStatusRequest))
     }
 
 }
