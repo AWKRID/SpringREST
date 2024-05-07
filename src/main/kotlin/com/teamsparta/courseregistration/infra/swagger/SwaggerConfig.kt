@@ -16,4 +16,5 @@ class SwaggerConfig {
                 .description("Course API Schema")
                 .version("1.0.0")
         )
+
 }
