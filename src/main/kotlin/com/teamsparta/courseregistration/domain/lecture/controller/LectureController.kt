@@ -55,6 +55,7 @@ class LectureController(
         @PathVariable courseId: Long,
         @PathVariable lectureId: Long
     ): ResponseEntity<Unit> {
+        courseService.removeLecture(courseId,lectureId)
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()

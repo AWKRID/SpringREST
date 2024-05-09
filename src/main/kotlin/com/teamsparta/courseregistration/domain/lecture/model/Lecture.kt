@@ -6,12 +6,11 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "lecture")
-
 class Lecture(
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     var title: String,
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", nullable = false)
     var videoUrl: String,
 
     @ManyToOne(fetch = FetchType.LAZY)

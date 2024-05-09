@@ -64,7 +64,6 @@ class CourseServiceImpl(
         course.description = description
 
         return courseRepository.save(course).toResponse()
-
     }
 
     @Transactional
@@ -93,7 +92,9 @@ class CourseServiceImpl(
             title = request.title,
             videoUrl = request.videoUrl,
             course = course
-        )
+        ).let {
+            lectureRepository.save(it)
+        }
         course.addLecture(lecture)
         courseRepository.save(course)
         return lecture.toResponse()
@@ -134,7 +135,7 @@ class CourseServiceImpl(
         val courseApplication = CourseApplication(
             course = course,
             user = user
-        )
+        ).let { courseApplicationRepository.save(it) }
         course.addCourseApplication(courseApplication)
         courseRepository.save(course)
         return courseApplication.toResponse()
